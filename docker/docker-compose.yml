@@ -1,0 +1,36 @@
+version: "3.2"
+
+services:
+  smartcontract:
+    build:
+      context: ../
+    container_name: "ice-bridge-contracts"
+    volumes:
+      - type: bind
+        source: ../
+        target: /home/node/app/
+    networks:
+      - net
+    entrypoint: sh
+    command: '-c "sleep 1d"'
+    links:
+      - ice-bridge-node
+    env_file:
+      - ./.env
+  ice-bridge-node:
+    build:
+      context: ./ganache
+    container_name: "ice-bridge-node"
+    #ports:
+    #  - 8545:8545
+    networks:
+      - net
+    env_file:
+      - ./.env
+    volumes:
+      - type: bind
+        source: ./ganache/ganache_with_accounts.sh
+        target: /app/ganache_with_accounts.sh
+    command: "bash ganache_with_accounts.sh"
+networks:
+  net:
