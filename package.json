@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/blocklords/ice-bridge/issues"
   },
-  "homepage": "https://github.com/blocklords/ice-bridge#readme"
+  "homepage": "https://github.com/blocklords/ice-bridge#readme",
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^1.2.2",
+    "truffle-privatekey-provider": "^1.5.0"
+  }
 }
