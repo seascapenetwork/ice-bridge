@@ -11,21 +11,21 @@ contract BscLock {
   IERC20Mintable private mintableToken;
   address public tokenAddress;
 
-  address public validator;
+  address public deck;
 
   event Minted(address indexed token, address indexed owner, uint256 amount);
   event Burnt(address indexed token, address indexed owner, uint256 amount);
 
-  constructor(address _token, address _validator) {
+  constructor(address _token, address _deck) public {
     token = IERC20(_token);
     mintableToken = IERC20Mintable(_token);
     tokenAddress = _token;
-    validator = _validator;
+    deck = _deck;
   }
 
   /// @dev Restricted to members of the Deck role.
   modifier onlyDeck() {
-	  require(msg.sender == validator, "Restricted to deck.");
+	  require(msg.sender == deck, "Restricted to deck.");
 	  _;
   }
 
@@ -35,10 +35,10 @@ contract BscLock {
     emit Minted(tokenAddress, _account, _amount);
   }
 
-  function burn(address _account, uint256 _amount) onlyDeck external {
-    safeTransferFrom(msg.sender, address(this), _amount);
-    safeTransfer(address(0), _amount);
+  function burn(uint256 _amount) external {
+    token.safeTransferFrom(msg.sender, address(this), _amount);
+    mintableToken.burn(_amount);
 
-    Burnt(tokenAddress, _account, _amount);
+    Burnt(tokenAddress, msg.sender, _amount);
   }
 }

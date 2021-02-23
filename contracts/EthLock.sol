@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
 
-import "./openzeppelin/contracts/token/ERC20/IERC20.sol"
+import "./openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 /// @notice The centrlized version of the Ice Bridge.
 /// The next version is planned to be without any validator using the Chain Link oracles.
 /// In a long term plan, the bridge will support multiple tokens.
 contract EthLock {
-
   IERC20 private token;
   address public tokenAddress;
   address public validator;
@@ -20,7 +19,7 @@ contract EthLock {
   event Withdrawn(address indexed token, address indexed owner, uint256 indexed withdrawAmount, uint256 amount);
 
   /// Notice, that only owner of the token can add it.
-  constructor(address _token, address _validator) {
+  constructor(address _token, address _validator) public {
     token = IERC20(_token);
     tokenAddress = _token;
     validator = _validator;
@@ -38,5 +37,7 @@ contract EthLock {
     token.transfer(address(uint160(msg.sender)), _amount);
 
 	  emit Withdrawn(tokenAddress, msg.sender, withdrawAmount, _amount);
+
+    withdrawAmount = withdrawAmount + 1;
   }
 }
