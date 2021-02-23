@@ -1,0 +1,23 @@
+{
+  "name": "ice-bridge",
+  "version": "1.0.0",
+  "description": "opensource bridge between ethereum mainnet and binance smart chain to transfer ERC20 tokens",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blocklords/ice-bridge.git"
+  },
+  "keywords": [
+    "seascape",
+    "bridge"
+  ],
+  "author": "Medet Ahmetson <admin@blocklords.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blocklords/ice-bridge/issues"
+  },
+  "homepage": "https://github.com/blocklords/ice-bridge#readme"
+}
